@@ -1,39 +1,56 @@
 #include<stdio.h>
-struct_fraction
+typedef struct _fraction 
 {
-  int num,den;
+    int num,den;
+}F;
+F input_fraction()
+{
+    F f;
+    printf("enter num,den \n ");
+    scanf("%d%d",&f.num,&f.den);
+    return f;
 }
-typedef struct_fraction Fraction;
-Fraction input_fraction()
+F Largest_fraction(F f1,F f2,F f3)
 {
-  Fraction f;
-  printf("enter the fraction\n");
-  scanf("%d%d",&f.num,&f.den);
-  return f;
+    int cd=f1.den*f2.den*f3.den;
+    int f1num=(f1.num*cd)/f1.den;
+    int f2num=(f2.num*cd)/f2.den;
+    int f3num=(f3.num*cd)/f3.den;
+    if(f1num>f2num && f1num>f3num)
+    {
+        return f1;
+    }
+    else if(f2num>f3num)
+    {
+        return f2;
+    }
+    else
+    {
+        return f3;
+    }
 }
-Fraction find_smallest(Fraction f1,Fraction f2,Fraction f3)
+void output(F f1,F f2,F f3,F largest)
 {
-  int common_denominator = f1.den * f2.den * f3.den;
-  int num1=f1.num * common_denominator/f1.den;
-  int num2=f2.num * common_denominator/f2.den;
-  int num3=f3.num * common_denominator/f3.den;
-  if (num1 < num2 && num1 < num3)
-    return f1;
-  else if (num2 < num3)
-    return f2;
-  else
-    return f3;
-  }
-void output(Fraction f1,Fraction f2,Fraction f3,Fraction smallest)
-{
-  printf("the smallest of %d%d,%d%d,%d%d is %d%d\n",f1.num,f1.den,f2.num,f2.den,f3.num,f3.den,smallest.num,smallest.den);
+    if(f1.num==largest.num && f1.den==largest.den)
+    {
+        printf("the largest fraction among %d/%d , %d/%d and %d/%d is %d/%d",f1.num,f1.den,f2.num,f2.den,f3.num,f3.den,largest.num,largest.den);
+    }
+    else if(f2.num==largest.num && f2.den==largest.den)
+    {
+         printf("the largest fraction among %d/%d , %d/%d and %d/%d is %d/%d",f1.num,f1.den,f2.num,f2.den,f3.num,f3.den,largest.num,largest.den);
+    }
+    else
+    {
+         printf("the largest fraction among %d/%d , %d/%d and %d/%d is %d/%d",f1.num,f1.den,f2.num,f2.den,f3.num,f3.den,largest.num,largest.den);
+    }
 }
-int main ()
+int main()
 {
-  fraction f1,f2,f3,smallest;
-  fraction input_fraction ();
-  f1=input_fraction();
-  f2=input_fraction();
-  f3=input_fraction();
-  return 0;
+    F f1,f2,f3,largest;
+    f1=input_fraction();
+    f2=input_fraction();
+    f3=input_fraction();
+    largest=Largest_fraction(f1,f2,f3);
+    output(f1,f2,f3,largest);
+    return 0;
 }
